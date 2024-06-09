@@ -36,7 +36,7 @@ async function run() {
 
     const artWorks = client.db("ArtWorks").collection("arts")
 
-    // INSERT a arts to the database: post method_______________________
+    // INSERT an arts to the database: post method_______________________
     app.post('/upload-arts', async(req, res)=> {
         const data = req.body;
         const results = await artWorks.insertOne(data);
@@ -72,7 +72,7 @@ async function run() {
     })
     // _______________________________________________________
 
-    // DELETE a book data 
+    // DELETE an art data 
     app.delete('/art/:id', async(req, res)=> {
       const id = req.params.id;
       const filter = {_id: new ObjectId(id)}
