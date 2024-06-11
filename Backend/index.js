@@ -1,20 +1,13 @@
-const express = require('express')
-const app = express()
-const port = process.env.PORT || 5000
-const cors = require('cors')
+const express = require('express');
+const app = express();
+const port = process.env.PORT || 5000;
+const cors = require('cors');
 
-// middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// a720hRWZ4YoGVvJm
-
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-// mongodb configuration
-
+// MongoDB Configuration
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = "mongodb+srv://mern-art-store:a720hRWZ4YoGVvJm@cluster0.vdpibah.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -29,83 +22,103 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
+    // Connect the client to the server
     await client.connect();
-    
-    // create a collection of documents
+    console.log("Connected to MongoDB!");
 
-    const artWorks = client.db("ArtWorks").collection("arts")
+    // Create a collection of documents
+    const artWorks = client.db("ArtWorks").collection("arts");
 
-    // INSERT an arts to the database: post method_______________________
-    app.post('/upload-arts', async(req, res)=> {
+    // upload an artwork into the database
+    app.post('/upload-arts', async (req, res) => {
+      try {
         const data = req.body;
-        const results = await artWorks.insertOne(data);
-        res.send(results)
-    })
-// _________________________________________________________________________
-
-    // GET all arts from database_______________
-    app.get("/all-arts", async(req, res)=> {
-      const arts = artWorks.find();
-      const result = await arts.toArray();
-      res.send(result)
-    })
-// ____________________________________________________
-
-    // UPDATE a arts: patch or update method___________
-    app.patch("/art/:id", async(req, res)=> {
-      const id = req.params.id;
-      console.log(id)
-      const updateArtData = req.body;
-      const filter = {_id: new ObjectId(id)};
-      const options = {upsert: true}
-
-      const updateDoc = {
-        $set: {
-          ...updateArtData
-        }
+        const result = await artWorks.insertOne(data);
+       res.send(result) // Send the inserted document back to the client
+      } catch (error) {
+        console.error("Error inserting artwork:", error);
+        res.status(500).json({ error: "Failed to insert artwork" });
       }
+    });
 
-      // update
-      const result = await  artWorks.updateOne(filter, updateDoc, options);
-      res.send(result)
-    })
-    // _______________________________________________________
+    // Get all artworks from the database
+    app.get("/all-arts", async (req, res) => {
+      try {
+        const result = await artWorks.find().toArray();
+        res.json(result);
+      } catch (error) {
+        console.error("Error fetching all artworks:", error);
+        res.status(500).json({ error: "Failed to fetch artworks" });
+      }
+    });
 
-    // DELETE an art data 
-    app.delete('/art/:id', async(req, res)=> {
+    // Getting a single item 
+    app.get('/art/:id', async(req, res)=> {
       const id = req.params.id;
       const filter = {_id: new ObjectId(id)}
-      const result = await artWorks.deleteOne(filter)
+      const result = await artWorks.findOne(filter)
       res.send(result)
     })
 
-    // Filter by category
-    app.get('/all-arts', async(req, res)=> {
-      let query = {};
-      if(req.query ?.categories) {
-        query = {categories: req.query.categories}
+    // Update an artwork
+    app.patch("/art/:id", async (req, res) => {
+      try {
+        const id = req.params.id;
+        const updateArtData = req.body;
+        const filter = {_id: new ObjectId(id) };
+        const updatedDoc = {
+          $set: {
+            ...updateArtData
+          }
+        };
+        const result = await artWorks.updateOne(filter, updatedDoc);
+        res.json(result);
+      } catch (error) {
+        console.error("Error updating artwork:", error);
+        res.status(500).json({ error: "Failed to update artwork" });
       }
-      const result = await artWorks.find(query).toArray()
-      res.send(result)
-    })
+    });
 
+    // Delete an artwork
+    app.delete('/art/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+        const filter = { _id: new ObjectId(id) };
+        const result = await artWorks.deleteOne(filter);
+        res.json(result);
+      } catch (error) {
+        console.error("Error deleting artwork:", error);
+        res.status(500).json({ error: "Failed to delete artwork" });
+      }
+    });
 
-
+    // Filter artworks by category
+    app.get('/all-arts', async (req, res) => {
+      try {
+        let query = {};
+        if (req.query?.categories) {
+          query = { categories: req.query.categories };
+        }
+        const result = await artWorks.find(query).toArray();
+        res.json(result);
+      } catch (error) {
+        console.error("Error filtering artworks by category:", error);
+        res.status(500).json({ error: "Failed to filter artworks" });
+      }
+    });
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
-    // Ensures that the client will close when you finish/error
+    // Ensure that the client will close when you finish/error
     // await client.close();
   }
 }
-run().catch(console.dir);
- 
 
+run().catch(console.error);
 
-
+// Start the Express server
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});

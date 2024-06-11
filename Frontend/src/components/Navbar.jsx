@@ -30,7 +30,7 @@ const Navbar = () => {
      return (
          <header>
              <nav>
-               <div className="flex justify-between items-center bg-blue-950 md:bg-white text-white md:text-black px-4 md:px-20 py-7 flex-wrap md:border-b-2 ">
+               <div className="flex justify-between items-center bg-blue-950 md:bg-white text-white md:text-black px-4 md:px-20 py-5 flex-wrap md:border-b-2 ">
                     <h3>Name</h3>
                 <button className="text-xl ">
                    <div className="flex justify-between items-center md:border md:border-black pr-2 w-0 md:w-96 h-9 rounded-2xl">
