@@ -1,11 +1,17 @@
 import Banner from "./Banner"
-import FavouriteArts from "./FavouriteArts"
+import BestSellerArts from "./BestSellerArts"
+import FavAntiques from "./FavAntiques"
+import MoreAntiques from "./MoreAntiques"
+import PromoBanner from "./PromoBanner"
 
 const Home = () => {
   return (
     <div>
       <Banner/>
-      <FavouriteArts/>
+      <BestSellerArts/>
+      <FavAntiques/>
+      <MoreAntiques/>
+      <PromoBanner/>
     </div>
   )
 }

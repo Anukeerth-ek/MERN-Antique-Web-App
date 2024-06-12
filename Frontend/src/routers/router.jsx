@@ -4,6 +4,7 @@ import Home from "../home/Home";
 import Shop from "../shop/Shop";
 import About from "../components/About";
 import Blog from "../components/Blog";
+import SingleArt from "../shop/SingleArt";
 
 const router = createBrowserRouter([
      {
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
                {
                     path: "/blog",
                     element: <Blog />,
+               },
+               {
+                    path: "/art/:id",
+                    element: <SingleArt />,
+                    loader:({params})=> fetch(`http://localhost:5000/art/${params.id}`)
                },
           ],
      },

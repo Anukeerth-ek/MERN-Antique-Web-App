@@ -71,7 +71,8 @@ async function run() {
             ...updateArtData
           }
         };
-        const result = await artWorks.updateOne(filter, updatedDoc);
+        const options = {upsert: true}
+        const result = await artWorks.updateOne(filter, updatedDoc, options);
         res.json(result);
       } catch (error) {
         console.error("Error updating artwork:", error);

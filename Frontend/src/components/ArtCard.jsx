@@ -1,75 +1,90 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
+import "swiper/css";
+import "swiper/css/pagination";
 // import required modules
-import { Pagination } from 'swiper/modules';
+import { Pagination } from "swiper/modules";
 import { AiFillCaretDown } from "react-icons/ai";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { CiHeart } from "react-icons/ci";
 
-const ArtCard = ({arts, headline}) => {
-    console.log(arts)
-  return (
-    <div className='mx-20'>
-      <div className='flex justify-between mb-4'>
-        <h2 className='text-3xl font-semibold'>{headline}</h2>
-        <div>
-       <button> <AiFillCaretDown/></button>
-        </div>
+const ArtCard = ({ arts, headline }) => {
+     console.log(arts);
+     return (
+          <div className="mx-4 lg:mx-20">
+               <div className="flex justify-between mb-4 ">
+                    <h2 className="text-xl lg:text-3xl font-semibold">{headline}</h2>
+                    <div>
+                         <button>
+                              {" "}
+                              <AiFillCaretDown />
+                         </button>
+                    </div>
+               </div>
+               <div>
+                    <Swiper
+                         slidesPerView={1}
+                         spaceBetween={10}
+                         pagination={{
+                              clickable: true,
+                         }}
+                         breakpoints={{
+                              640: {
+                                   slidesPerView: 2,
+                                   spaceBetween: 20,
+                              },
+                              768: {
+                                   slidesPerView: 3,
+                                   spaceBetween: 35,
+                              },
+                              1024: {
+                                   slidesPerView: 4,
+                                   spaceBetween: 40,
+                              },
+                         }}
+                         modules={[Pagination]}
+                         className="mySwiper"
+                    >
+                         {arts.map((items) => (
+                              <SwiperSlide key={items._id}>
+                                   <div className="px-3 bg-white py-2 border-black w-auto">
+                                        <Link to={`/art/${items._id}`}>
+                                             <div className="min-w-[250px] md:w-full flex-wrap">
+                                                  <img
+                                                       src={items.image}
+                                                       className="w-full h-[150px] sm:h-[180px] md:h-[200px] lg:h-[220px] object-cover duration-1000 rounded-lg"
+                                                  />
+                                             </div>
 
-      </div>
-        <div >
-        <Swiper
-        slidesPerView={1}
-        spaceBetween={10}
-        pagination={{
-          clickable: true,
-        }}
-        breakpoints={{
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 20,
-          },
-          768: {
-            slidesPerView: 4,
-            spaceBetween: 30,
-          },
-          1024: {
-            slidesPerView: 5,
-            spaceBetween: 40,
-          },
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
-      >
-        
-        {arts.slice(0, 6).map(items => <SwiperSlide key={items._id}>
-          <div className='px-3 bg-white py-2 border-black w-auto'>
-          <Link to='/' >
-              <div className=''>
-                  <img src={items.image} className='h-[220px] min-w-[250px] object-cover duration-1000'/>
-              </div>
-              <div className='flex justify-between mt-2 gap'>
-                  <p className=' font-medium text-md'>{items.title.length > 21 ? items.title.slice(0, 21) : items.title}</p>
-                  <p className='font-semibold text-lg '>${items.price} </p>
-              </div>
-              <p className='flex mt-2 gap-1  '>{items.categories.map((category)=> (
-                <p className='bg-gray-200 px-2 rounded-2xl gap-4 text-gray-600'>{category}</p>
-              ))}</p>
-             <div className='flex justify-between items-center py-3'>
-             <CiHeart className='bg-black text-white text-3xl p-[2px]'/>
-             <button className='py-1 px-[65px] border border-gray-900'>Add to cart</button>
-             </div>
-          </Link>
+                                             <div className="flex justify-between mt-2 ">
+                                                  <p className=" font-medium md:text-base lg:text-lg">
+                                                       {items.title.length > 21 ? items.title.slice(0, 21) : items.title}
+                                                  </p>
+                                                  <p className="font-semibold text-lg ">${items.price} </p>
+                                             </div>
+                                             <p className="flex flex-wrap mt-2 gap-1  ">
+                                                  {items.categories.map((category) => (
+                                                       <p className="bg-gray-200 px-2 rounded-2xl gap-4 text-gray-600">
+                                                            {category}
+                                                       </p>
+                                                  ))}
+                                             </p>
+                                             <div className="flex justify-between items-center py-3">
+                                                  <CiHeart className="bg-black text-white text-3xl p-[2px]" />
+                                                  <button className="py-1 px-[100px] md:px-[10px] lg:px-[65px] border border-gray-900 ">
+                                                       Add to cart
+                                                  </button>
+                                             </div>
+                                        </Link>
+                                   </div>
+                              </SwiperSlide>
+                         ))}
+                    </Swiper>
+               </div>
           </div>
-        </SwiperSlide>)}
-      </Swiper>
-        </div>
-    </div>
-  )
-}
+     );
+};
 
 export default ArtCard;

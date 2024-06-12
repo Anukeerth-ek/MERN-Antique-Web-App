@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react"
 import ArtCard from "../components/ArtCard"
 
-const FavouriteArts = () => {
+const BestSellerArts = () => {
     const [arts, setArts] = useState([])
    
     useEffect(()=> {
-      fetch('http://localhost:5000/all-arts').then(res => res.json()).then(data => setArts(data))
+      fetch('http://localhost:5000/all-arts').then(res => res.json()).then(data => setArts(data.slice(1, 6)))
     }, [])
 
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 py-4">
       <ArtCard arts={arts} headline="Fresh recommendations"/>
     </div>
   )
 }
 
-export default FavouriteArts
+export default BestSellerArts
