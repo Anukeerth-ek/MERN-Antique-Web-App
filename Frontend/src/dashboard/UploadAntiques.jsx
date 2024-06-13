@@ -4,36 +4,54 @@ const UploadAntiques = () => {
      const antiqueCategories = ["Original Arts", "Jewelery", "Books", "Home Decor", "Vintage Cars", "Furniture", "Musical"];
 
      const [selectedAntiqueCategory, setSelectedAntiqueCategory] = useState(antiqueCategories[0]);
+     const [materials, setMaterials] = useState([""]);
+
      const handleChangeSelectedValue = (event) => {
           setSelectedAntiqueCategory(event.target.value);
      };
 
-    //  handle antique submission
-    const handleAntiqueSubmission = (event)=> {
-        event.preventDefault();
-        const form = event.target;
-     
-        const title = form.title.value
-        const price = form.price.value
-        const image = form.image.value;
-        const categories = form.categories.value
-        const description = form.description.value
+     //  handle antique submission
+     const handleAntiqueSubmission = (event) => {
+          event.preventDefault();
+          const form = event.target;
 
-        const sellerName = form.sellerName.value;
-        const sellerContact = form.sellerContact.value;
-        const sellerLocation = form.sellerLocation.value;
-        const materials = form.materials.value
+          const title = form.title.value;
+          const price = form.price.value;
+          const image = form.image.value;
+          const categories = form.categories.value;
+          const description = form.description.value;
 
-        const bookObj = {
-            title, price, image, categories, description, materials,
-            seller: {
-                name: sellerName,
-                contact: sellerContact,
-                location: sellerLocation,
-              },
-        }
-        console.log(bookObj)
-    }
+          const sellerName = form.sellerName.value;
+          const sellerContact = form.sellerContact.value;
+          const sellerLocation = form.sellerLocation.value;
+   
+
+          const bookObj = {
+               title,
+               price,
+               image,
+               categories,
+               description,
+               materials,
+               seller: {
+                    name: sellerName,
+                    contact: sellerContact,
+                    location: sellerLocation,
+               },
+          };
+          console.log(bookObj);
+     };
+
+     // material add section
+     const handleMaterialChange = (index, event) => {
+          const newMaterials = [...materials];
+          newMaterials[index] = event.target.value;
+          setMaterials(newMaterials);
+     };
+
+     const addMaterialField = () => {
+          setMaterials([...materials, ""]);
+     };
 
      return (
           <div className="mt-10">
@@ -130,27 +148,22 @@ const UploadAntiques = () => {
                     {/* third category */}
                     <div className="flex gap-8">
                          {/*material  */}
-                         <div className="lg:w-1/2">
-                              <div className="relative ">
+                         <div className="form-group">
+                            
+                              {materials.map((material, index) => (
                                    <input
+                                        key={index}
                                         type="text"
-                                        id="materials"
+                                        value={material}
+                                        onChange={(event) => handleMaterialChange(index, event)}
                                         required
-                                        name="materials"
-                                        className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                         placeholder="Materials"
+                                        className=" rounded-md"
                                    />
-                                   <label
-                                        htmlFor="materials"
-                                        value="Materials"
-                                        className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-                                   >
-                                        material
-                                   </label>
-                              </div>
-                              </div>
-                              {/* location */}
-                              <div className="lg:w-1/2">
+                              ))}
+                         </div>
+                         {/* location */}
+                         <div className="lg:w-1/2">
                               <div className="relative ">
                                    <input
                                         type="text"
@@ -168,9 +181,9 @@ const UploadAntiques = () => {
                                         seller Location
                                    </label>
                               </div>
-                              </div>
                          </div>
-                    
+                    </div>
+
                     {/* fourth category */}
                     <div className="flex gap-8">
                          {/*sellerName */}
@@ -192,9 +205,9 @@ const UploadAntiques = () => {
                                         seller Name
                                    </label>
                               </div>
-                              </div>
-                              {/* seller contact */}
-                              <div className="lg:w-1/2">
+                         </div>
+                         {/* seller contact */}
+                         <div className="lg:w-1/2">
                               <div className="relative ">
                                    <input
                                         type="text"
@@ -209,20 +222,16 @@ const UploadAntiques = () => {
                                         value="seller Contact"
                                         className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
                                    >
-                                       sellerContact
+                                        sellerContact
                                    </label>
                               </div>
-                              </div>
                          </div>
-
+                    </div>
 
                     {/* fifth category */}
                     {/* job description */}
                     <div className="lg:w-full">
                          <div className="relative">
-                           
-
-                          
                               <textarea
                                    id="description"
                                    required
@@ -236,14 +245,12 @@ const UploadAntiques = () => {
                                    htmlFor="description"
                                    value="Description"
                                    className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-                              >
-                                   
-                              </label>
+                              ></label>
                          </div>
                     </div>
-                    
+
                     <button type="submit" className="mt-4 bg-blue-600 py-2 text-white">
-                        Upload
+                         Upload
                     </button>
                </form>
           </div>
