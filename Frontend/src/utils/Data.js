@@ -72,3 +72,69 @@ export const bannerSection = [
     },
 ]
 
+export const sideBar = [
+    {
+        icons: '',
+        title: "Dashboard",
+        marginBottom: false,
+        marginTop: false,
+        path:'/admin/dashboard',
+    },
+    {
+        icons: '',
+        title: "Upload Antiques",
+        marginBottom: false,
+        marginTop: false,
+         path:'/admin/dashboard/upload',
+    },
+    {
+        icons: '',
+        title: "Manage Antiques",
+        marginBottom: false,
+        marginTop: false,
+        path:'/admin/dashboard/manage'
+    },
+    {
+        icons: '',
+        title: "Users",
+        marginBottom: false,
+        marginTop: false,
+    },
+    {
+        icons: '',
+        title: "Products",
+        marginBottom: false,
+        marginTop: false,
+    },
+    {
+        icons: '',
+        title: "Sign in",
+        marginBottom: false,
+        marginTop: false,
+    },
+    {
+        icons: '',
+        title: "Log Out",
+        marginBottom: true,
+        marginTop: false,
+    },
+    {
+        icons: '',
+        title: "Upgrade to Pro",
+        marginBottom: false,
+        marginTop: true,
+    },
+    {
+        icons: '',
+        title: "Documentation",
+        marginBottom: false,
+        marginTop: false,
+    },
+    {
+        icons: '',
+        title: "Help",
+        marginBottom: false,
+        marginTop: false,
+
+    },
+]
