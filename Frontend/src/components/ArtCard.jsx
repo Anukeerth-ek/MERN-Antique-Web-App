@@ -9,13 +9,16 @@ import { Pagination } from "swiper/modules";
 import { AiFillCaretDown } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { CiHeart } from "react-icons/ci";
+import { WiStars } from "react-icons/wi";
 
 const ArtCard = ({ arts, headline }) => {
      console.log(arts);
      return (
           <div className="mx-4 lg:mx-20">
                <div className="flex justify-between mb-4 ">
-                    <h2 className="text-xl lg:text-3xl font-semibold">{headline}</h2>
+                    <h2 className="text-xl lg:text-2xl font-semibold">{headline}
+                         {/* < WiStars className=" text-amber-400 text-4xl"/> */}
+                    </h2>
                     <div>
                          <button>
                               {" "}

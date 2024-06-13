@@ -6,16 +6,16 @@ const Banner = () => {
           <section>
                <div>
                     <div className="flex flex-wrap items-center flex-col px-4 lg:px-0">
-                         <h1 className="text-lg lg:text-3xl my-2 lg:my-[20px] font-normal">Small shop make every moment special!</h1>
+                         <h1 className="text-lg lg:text-[24px]  lg:my-[12px] font-normal">Small shop make every moment special!</h1>
                          <div>
                               <ul className="flex flex-wrap justify-center text-center mt-[20px] gap-14 mb-2">
                                    {bannerSection.map((item, index) => (
                                         <>
                                              <li
                                                   key={index}
-                                                  className={`text-semibold text-xl ${item.wordBreak ? "break-words" : ""}`}
+                                                  className={`text-semibold text-lg ${item.wordBreak ? "break-words" : ""}`}
                                              >
-                                                  <img src={item.image} className="rounded-[60%] object-cover h-[110px] w-[110px]" />
+                                                  <img src={item.image} className="rounded-[70%] object-cover h-[110px] w-[110px]" />
                                                   {item.title.split(".").map((sentence, index, array) => (
                                                        <React.Fragment key={index}>
                                                             {sentence}
