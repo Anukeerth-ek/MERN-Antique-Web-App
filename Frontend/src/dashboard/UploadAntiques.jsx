@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const UploadAntiques = () => {
      const antiqueCategories = ["Original Arts", "Jewelery", "Books", "Home Decor", "Vintage Cars", "Furniture", "Musical"];
 
-     const [selectedAntiqueCategory, setSelectedAntiqueCategory] = useState(antiqueCategories[0]);
+     const [selectedAntiqueCategory, setSelectedAntiqueCategory] = useState("");
      const [materials, setMaterials] = useState([""]);
 
      const handleChangeSelectedValue = (event) => {
@@ -18,19 +18,22 @@ const UploadAntiques = () => {
           const title = form.title.value;
           const price = form.price.value;
           const image = form.image.value;
-          const categories = form.categories.value;
+
           const description = form.description.value;
+
+          const selectedCategories = Array.from(form.categories.options)
+               .filter((option) => option.selected)
+               .map((option) => option.value);
 
           const sellerName = form.sellerName.value;
           const sellerContact = form.sellerContact.value;
           const sellerLocation = form.sellerLocation.value;
-   
 
-          const bookObj = {
+          const antiqueObj = {
                title,
                price,
                image,
-               categories,
+               categories: selectedCategories,
                description,
                materials,
                seller: {
@@ -39,8 +42,25 @@ const UploadAntiques = () => {
                     location: sellerLocation,
                },
           };
-          console.log(bookObj);
-     };
+            //  fetching for uploading the data
+
+     fetch("http://localhost:5000/upload-arts",
+        {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(antiqueObj)
+        }
+     )
+          .then((res) => res.json())
+          .then((data) => {
+               alert("Antique added succesfully");
+               form.reset()
+          });
+        };
+         
+     
 
      // material add section
      const handleMaterialChange = (index, event) => {
@@ -53,6 +73,7 @@ const UploadAntiques = () => {
           setMaterials([...materials, ""]);
      };
 
+   
      return (
           <div className="mt-10">
                <h2 className="text-3xl font-bold  mb-5">Upload an Antique</h2>
@@ -126,8 +147,7 @@ const UploadAntiques = () => {
 
                          {/* category*/}
                          <div className="lg:w-1/2">
-                              <div className="relative ">
-                                   <label htmlFor="Inputstate" value="price" price />
+                              <div className="relative">
                                    <select
                                         id="Inputstate"
                                         name="categories"
@@ -135,6 +155,7 @@ const UploadAntiques = () => {
                                         value={selectedAntiqueCategory}
                                         onChange={handleChangeSelectedValue}
                                    >
+                                        <option value="">Select...</option>
                                         {antiqueCategories.map((option) => (
                                              <option key={option} value={option}>
                                                   {option}
@@ -148,19 +169,20 @@ const UploadAntiques = () => {
                     {/* third category */}
                     <div className="flex gap-8">
                          {/*material  */}
-                         <div className="form-group">
-                            
-                              {materials.map((material, index) => (
-                                   <input
-                                        key={index}
-                                        type="text"
-                                        value={material}
-                                        onChange={(event) => handleMaterialChange(index, event)}
-                                        required
-                                        placeholder="Materials"
-                                        className=" rounded-md"
-                                   />
-                              ))}
+                         <div className="lg:w-1/2">
+                              <div className="form-group ">
+                                   {materials.map((material, index) => (
+                                        <input
+                                             key={index}
+                                             type="text"
+                                             value={material}
+                                             onChange={(event) => handleMaterialChange(index, event)}
+                                             required
+                                             placeholder="Materials"
+                                             className=" rounded-md w-full"
+                                        />
+                                   ))}
+                              </div>
                          </div>
                          {/* location */}
                          <div className="lg:w-1/2">
