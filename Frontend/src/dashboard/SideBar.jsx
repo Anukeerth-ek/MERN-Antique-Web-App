@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { sideBar } from "../utils/Data";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const SideBar = () => {
+ 
+     const {user} = useContext(AuthContext)
+
      return (
           <aside>
                <div>
                     <ul className="bg-gray-100 py-10 pr-12 pl-4">
-                       {/* <div className="w-10 h-10 inline-flex">
-                       <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiUyFfQCkyYPr1crbYNmA3_gj6Cf89GM291rXQAjmub0eWVg0ixaFfahYfVw&s' className="rounded-full w-full h-full"/>
-                       <h3 className="text-3xl font-bold">Name here</h3>
-                       </div> */}
+                       <Link to="/">
+                       <div className=" inline-flex mb-4">
+                       <img src={user.photoUrl ? user.photoUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzpI-jRCBsbJuzXvVYUsqWM9Mketi1KxQh9bzrDMM7pvSlqHuuseLokmX3b2IP-PP5u2c&usqp=CAU'} className="rounded-full w-12"/>
+                       <h3 className=" text-base font-bold">Hi, {user.displayName}</h3>
+                       </div>
+                       </Link>
                          {sideBar.map((item, index) => {
                               return (
                                    <Link to={item.path} key={index}>

@@ -56,13 +56,15 @@ const Navbar = () => {
                               </ul>
                          </div>
 
-                         <div className="border px-9 md:px-12 py-1 md:py-2 bg-white text-black  md:bg-blue-600 md:hover:bg-transparent cursor-pointer md:hover:border-blue-600 md:hover:bg-blue-700  md:text-white rounded-lg md:block">
+                        <Link to="/login">
+                        <div className="border px-9 md:px-12 py-1 md:py-2 bg-white text-white  md:bg-blue-600 md:hover:bg-transparent cursor-pointer md:hover:border-blue-600 md:hover:bg-blue-700 md:hover:text-blue-600  rounded-lg md:block">
                               <button className="transition-all duration-500 hover:custom-ease-class cursor-pointer ">
                                    Login
                               </button>
                          </div>
+                        </Link>
                          <div>
-                            {user ? user.email : ''}
+                           <p>Hi, {user ? user.displayName : ''}</p>
                          </div>
 
                          <div className="block md:block lg:hidden">

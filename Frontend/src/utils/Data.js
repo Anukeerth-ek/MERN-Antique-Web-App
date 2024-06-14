@@ -117,6 +117,7 @@ export const sideBar = [
         title: "Log Out",
         marginBottom: true,
         marginTop: false,
+        path:'/logout'
     },
     {
         icons: '',

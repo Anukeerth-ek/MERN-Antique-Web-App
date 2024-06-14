@@ -4,32 +4,30 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 import googleIcon from "../assets/google-icon.png";
 const Login = () => {
-    const { createUser, loginWithGoogle } = useContext(AuthContext);
-    const [error, setError] = useState("error");
+    const { login, loginWithGoogle } = useContext(AuthContext);
+    const [error, setError] = useState("");
 
     const location = useLocation();
     const navigate = useNavigate();
 
     const from = location.state?.from?.pathname || "/";
 
-    // handle signup
-    const handleSignup = (event) => {
+    // handle login
+    const handleLogin = (event) => {
          event.preventDefault();
          const form = event.target;
          const email = form.email.value;
          const password = form.password.value;
 
-         createUser(email, password)
-              .then((userCredential) => {
-                   const user = userCredential.user;
-                   alert("Sign up Successfully!");
-                   navigate(from, { replace: true });
-              })
-              .catch((error) => {
-                   const errorCode = error.code;
-                   const errorMessage = error.message;
-                   setError(errorMessage);
-              });
+        login(email, password).then((userCredential)=> {
+            const user = userCredential.user;
+            alert("Login Successfull")
+            navigate(from, {replace: true})
+        }).catch((error)=> {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            setError(errorMessage)
+        })
     };
 
    //  LOGIN WITH GOOGLE 
@@ -48,8 +46,8 @@ const Login = () => {
    }
   return (
     <div className="flex flex-col items-center justify-center mt-28">
-    <h1 className="font-bold text-2xl">Sign Up</h1>
-    <form className="flex flex-col bg-white rounded shadow-lg p-12 " action="" onSubmit={handleSignup}>
+    <h1 className="font-bold text-2xl">Login</h1>
+    <form className="flex flex-col bg-white rounded shadow-lg p-12 " action="" onSubmit={handleLogin}>
          <label className="font-semibold text-xs" htmlFor="usernameField">
               Username or Email
          </label>
@@ -72,14 +70,15 @@ const Login = () => {
               Sign Up
          </button>
          <div className="flex flex-col  mt-6 justify-center text-xs">
+         {error ? <p className="text-red-600 text-base">Email or password is incorrect!!</p> : ''}
               <a className="text-blue-400 hover:text-blue-500 text-center text-sm mb-2" href="#">
                    Forgot Password?
               </a>
-
+           
               <p className="text-sm">
-                   Already have an account?
-                   <Link to="/login" className="text-blue-600 underline ml-2">
-                        Login
+                  Don't have an account?
+                   <Link to="/sign-up" className="text-blue-600 underline ml-2">
+                        Sign Up
                    </Link>{" "}
               </p>
          </div>
@@ -89,7 +88,7 @@ const Login = () => {
          </span>
          <button className="flex items-center mt-6 border px-10 py-2" onClick={handleRegister}>
               <img src={googleIcon} className="w-6 mr-2" />
-              <span className="font-semibold">signup with google</span>
+              <span className="font-semibold">Login with google</span>
          </button>
     </form>
     <hr />
