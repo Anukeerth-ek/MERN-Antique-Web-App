@@ -12,7 +12,7 @@ import { CiHeart } from "react-icons/ci";
 import { WiStars } from "react-icons/wi";
 
 const ArtCard = ({ arts, headline }) => {
-     console.log(arts);
+   
      return (
           <div className="mx-4 lg:mx-20">
                <div className="flex justify-between mb-4 ">

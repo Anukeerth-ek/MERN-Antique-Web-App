@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CiMenuFries } from "react-icons/ci";
 import { GiTireIronCross } from "react-icons/gi";
 import { navLinks } from "../utils/Data";
 import { Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const Navbar = () => {
      //________ STATES __________
      const [isMenuOpen, setIsMenuOpen] = useState(false);
      const [isSticky, setIsSticky] = useState(false);
+     
+     const{user}  = useContext(AuthContext)
+
 
      // _____ToggleMenu____
      const toggleMenu = () => {
@@ -56,6 +60,9 @@ const Navbar = () => {
                               <button className="transition-all duration-500 hover:custom-ease-class cursor-pointer ">
                                    Login
                               </button>
+                         </div>
+                         <div>
+                            {user ? user.email : ''}
                          </div>
 
                          <div className="block md:block lg:hidden">

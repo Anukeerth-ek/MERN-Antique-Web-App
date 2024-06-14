@@ -10,6 +10,9 @@ import UploadAntiques from "../dashboard/UploadAntiques";
 import DashBoard from "../dashboard/DashBoard";
 import ManageAntiques from "../dashboard/ManageAntiques";
 import EditAntiques from "../dashboard/EditAntiques";
+import Signup from "../components/Signup";
+import Login from "../components/Login";
+import PrivateRoute from "../privateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
      {
@@ -45,7 +48,7 @@ const router = createBrowserRouter([
           children: [
                {
                     path:'/admin/dashboard',
-                    element: <DashBoard/>
+                    element: <PrivateRoute><DashBoard/></PrivateRoute>
                },
                {
                     path:'/admin/dashboard/upload',
@@ -62,6 +65,14 @@ const router = createBrowserRouter([
                },
                
           ]
+     },
+     {
+      path: 'sign-up',
+      element: <Signup/>
+     },
+     {
+          path:'login',
+          element: <Login/>
      }
 ]);
 

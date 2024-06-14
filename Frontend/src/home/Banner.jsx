@@ -10,7 +10,7 @@ const Banner = () => {
                          <div>
                               <ul className="flex flex-wrap justify-center text-center mt-[20px] gap-14 mb-2">
                                    {bannerSection.map((item, index) => (
-                                        <>
+                                 
                                              <li
                                                   key={index}
                                                   className={`text-semibold text-lg ${item.wordBreak ? "break-words" : ""}`}
@@ -24,7 +24,7 @@ const Banner = () => {
                                                        </React.Fragment>
                                                   ))}
                                              </li>
-                                        </>
+                                        
                                    ))}
                               </ul>
                          </div>
