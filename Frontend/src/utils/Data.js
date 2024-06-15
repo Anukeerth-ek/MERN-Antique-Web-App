@@ -1,11 +1,5 @@
 import image1 from '../assets/antique_jewellery.jpeg'
 
-
-
-
-
-
-
 export const navLinks = [
     {
         link:'Home',
@@ -139,3 +133,12 @@ export const sideBar = [
 
     },
 ]
+
+export const favouriteAntiqueDescription = 
+{
+    description: 'Explore a world of vintage charm and historical significance at Antique Vision. Our curated collection showcases exquisite antiques, each with a story to tell, preserving the essence of bygone eras for discerning collectors and enthusiasts alike.'
+}
+
+export const promoDescription = {
+    description: "Enjoy 30% off every product at Antique Vision, your premier destination for handcrafted antique treasures. Specializing in meticulously crafted pieces made by me, Antique Vision offers a curated selection that celebrates craftsmanship and heritage, perfect for collectors and enthusiasts alike."
+}

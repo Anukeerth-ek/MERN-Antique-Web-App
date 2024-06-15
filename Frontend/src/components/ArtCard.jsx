@@ -68,8 +68,8 @@ const ArtCard = ({ arts, headline }) => {
                                                   <p className="font-semibold text-lg ">${items.price} </p>
                                              </div>
                                              <p className="flex flex-wrap mt-2 gap-1  ">
-                                                  {items.categories.map((category) => (
-                                                       <p className="bg-gray-200 px-2 rounded-2xl gap-4 text-gray-600">
+                                                  {items.categories.map((category, index) => (
+                                                       <p className="bg-gray-200 px-2 rounded-2xl gap-4 text-gray-600" key={index}>
                                                             {category}
                                                        </p>
                                                   ))}

@@ -6,7 +6,7 @@ const Banner = () => {
           <section>
                <div>
                     <div className="flex flex-wrap items-center flex-col px-4 lg:px-0">
-                         <h1 className="text-lg lg:text-[24px]  lg:my-[12px] font-normal">Small shop make every moment special!</h1>
+                         <h1 className= "mt-2 md:mt-0 text-lg text-center lg:text-[24px]  lg:my-[12px] md:font-normal">Transforming the ordinary into extraordinary antiquities.</h1>
                          <div>
                               <ul className="flex flex-wrap justify-center text-center mt-[20px] gap-14 mb-2">
                                    {bannerSection.map((item, index) => (

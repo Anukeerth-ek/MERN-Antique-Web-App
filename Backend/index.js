@@ -93,20 +93,34 @@ async function run() {
       }
     });
 
-    // Filter artworks by category
-    app.get('/all-arts', async (req, res) => {
-      try {
-        let query = {};
-        if (req.query?.categories) {
-          query = { categories: req.query.categories };
-        }
-        const result = await artWorks.find(query).toArray();
-        res.json(result);
-      } catch (error) {
-        console.error("Error filtering artworks by category:", error);
-        res.status(500).json({ error: "Failed to filter artworks" });
-      }
-    });
+
+   // Filter artworks by category
+app.get('/all-arts', async (req, res) => {
+  try {
+    let query = {};
+
+    // Check if categories query parameter exists and is not empty
+    if (req.query.categories && req.query.categories.trim() !== '') {
+      const categories = req.query.categories.toLowerCase(); // Convert to lowercase
+
+      // Construct query to match the exact category
+      query = {
+        categories: categories
+      };
+
+      console.log('Query:', JSON.stringify(query));  // Debugging output
+    }
+
+    const result = await artWorks.find(query).toArray();
+    console.log('Result count:', result.length);  // Debugging output
+    res.json(result);
+  } catch (error) {
+    console.error("Error fetching or filtering artworks:", error);
+    res.status(500).json({ error: "Failed to fetch or filter artworks" });
+  }
+});
+
+
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
