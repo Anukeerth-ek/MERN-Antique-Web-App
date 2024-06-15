@@ -86,7 +86,7 @@ const Navbar = () => {
                          </Link>
                          {user && (
                               <div>
-                                   <img  src={user ? user.photoURL : ""} className="w-7 rounded-full"/>
+                                   <img  src={user ? user.photoURL : ""} className="w-7 rounded-full cursor-pointer"/>
                               </div>
                          )}
 
